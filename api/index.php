@@ -93,6 +93,10 @@ $router->post('/api/payments/mpesa-query', [PaymentController::class, 'queryStat
 $router->post('/api/payments/mpesa-callback', [PaymentController::class, 'callback']);
 $router->post('/api/payments/verify', [PaymentController::class, 'verify'], [$orderRateLimiter]);
 
+// ── Safaricom Daraja B2C Payout Callbacks (called by Safaricom servers) ──
+$router->post('/api/payments/b2c-result', [PaymentController::class, 'b2cResult']);
+$router->post('/api/payments/b2c-timeout', [PaymentController::class, 'b2cTimeout']);
+
 // ── Admin Control Center (PIN Protected & Rate Limited) ──
 $adminRateLimiter = new RateLimitMiddleware(60, 60);
 $router->get('/api/admin/summary', [AdminController::class, 'summary'], [$adminMiddleware, $adminRateLimiter]);

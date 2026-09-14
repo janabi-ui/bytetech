@@ -8,6 +8,7 @@ use App\Core\Response;
 use App\Repositories\SellerRepository;
 use App\Repositories\ProductRepository;
 use App\Repositories\CommissionRepository;
+use App\Services\MpesaB2cService;
 use Throwable;
 
 /**
@@ -19,12 +20,14 @@ class SellerController
     private SellerRepository $sellerRepo;
     private ProductRepository $productRepo;
     private CommissionRepository $commRepo;
+    private MpesaB2cService $b2cService;
 
     public function __construct()
     {
-        $this->sellerRepo = new SellerRepository();
+        $this->sellerRepo  = new SellerRepository();
         $this->productRepo = new ProductRepository();
-        $this->commRepo = new CommissionRepository();
+        $this->commRepo    = new CommissionRepository();
+        $this->b2cService  = new MpesaB2cService();
     }
 
     public function dashboard(Request $request): void
@@ -159,33 +162,84 @@ class SellerController
                 return;
             }
 
-            $stats = $this->sellerRepo->getSellerStats($sellerId);
+            $stats       = $this->sellerRepo->getSellerStats($sellerId);
             $netEarnings = (float)($stats['net_earnings'] ?? 0);
 
-            if ($netEarnings <= 0) {
-                Response::error('No disbursable balance available for payout.', 400);
+            if ($netEarnings < 10) {
+                Response::error('Minimum payout is KES 10. No disbursable balance available.', 400);
                 return;
             }
 
-            $phone = $seller['phone'] ?? '254712345678';
+            $phone     = $seller['phone'] ?? '';
+            if (empty($phone)) {
+                Response::error('No M-Pesa phone number on file. Please update your profile.', 400);
+                return;
+            }
+
             $payoutRef = 'B2C-' . strtoupper(bin2hex(random_bytes(4))) . '-' . date('Ymd');
+            $remarks   = 'Payout: ' . substr((string)($seller['store_name'] ?? 'Seller'), 0, 60);
 
-            \App\Core\Logger::info('Merchant M-Pesa B2C payout requested', [
-                'seller_id'  => $sellerId,
-                'store_name' => $seller['store_name'],
-                'amount'     => $netEarnings,
-                'phone'      => $phone,
-                'payout_ref' => $payoutRef,
-            ]);
+            // 1. Persist a pending payout record before hitting Daraja
+            try {
+                \App\Core\Database::execute(
+                    'INSERT IGNORE INTO seller_payouts
+                     (id, seller_id, amount, phone, status, conversation_id, originator_conversation_id, payout_ref, created_at)
+                     VALUES (?, ?, ?, ?, "pending", "", "", ?, NOW())',
+                    [\App\Core\Security\Sanitizer::uuid(), $sellerId, $netEarnings, $phone, $payoutRef]
+                );
+            } catch (Throwable $dbEx) {
+                \App\Core\Logger::warning('Could not insert seller_payouts row: ' . $dbEx->getMessage());
+            }
 
-            Response::success([
-                'payout_ref'   => $payoutRef,
-                'amount'       => $netEarnings,
-                'recipient'    => $phone,
-                'gateway'      => 'IntaSend M-Pesa B2C Disburser',
-                'status'       => 'PROCESSING',
-                'completed_at' => date('c'),
-            ], 'M-Pesa B2C disbursement requested successfully');
+            // 2. Dispatch real Daraja B2C request
+            $result = $this->b2cService->initiateB2cPayout(
+                $phone,
+                $netEarnings,
+                $payoutRef,
+                $remarks
+            );
+
+            if (!empty($result['success'])) {
+                // 3. Update the payout row with Daraja conversation IDs
+                try {
+                    \App\Core\Database::execute(
+                        'UPDATE seller_payouts
+                         SET conversation_id = ?, originator_conversation_id = ?, status = "processing"
+                         WHERE payout_ref = ?',
+                        [
+                            $result['ConversationID'] ?? '',
+                            $result['OriginatorConversationID'] ?? '',
+                            $payoutRef
+                        ]
+                    );
+                } catch (Throwable $upEx) {
+                    \App\Core\Logger::warning('Could not update seller_payouts conversation IDs: ' . $upEx->getMessage());
+                }
+
+                Response::success([
+                    'payout_ref'      => $payoutRef,
+                    'conversation_id' => $result['ConversationID'] ?? null,
+                    'amount'          => $netEarnings,
+                    'recipient'       => $phone,
+                    'is_simulated'    => $result['is_simulated'] ?? false,
+                    'status'          => 'PROCESSING',
+                    'message'         => $result['ResponseDescription'] ?? 'Payout dispatched to Safaricom Daraja.',
+                ], 'M-Pesa B2C payout dispatched successfully');
+            } else {
+                // Mark payout record as failed
+                try {
+                    \App\Core\Database::execute(
+                        'UPDATE seller_payouts SET status = "failed" WHERE payout_ref = ?',
+                        [$payoutRef]
+                    );
+                } catch (Throwable) {}
+
+                Response::error(
+                    $result['error'] ?? 'Failed to dispatch M-Pesa B2C payout.',
+                    502,
+                    $result
+                );
+            }
         } catch (Throwable $e) {
             Response::error($e->getMessage(), 500);
         }

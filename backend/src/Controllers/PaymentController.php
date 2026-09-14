@@ -6,6 +6,7 @@ namespace App\Controllers;
 use App\Core\Request;
 use App\Core\Response;
 use App\Services\MpesaService;
+use App\Services\MpesaB2cService;
 use App\Repositories\OrderRepository;
 use Throwable;
 
@@ -16,12 +17,14 @@ use Throwable;
 class PaymentController
 {
     private MpesaService $mpesaService;
+    private MpesaB2cService $b2cService;
     private OrderRepository $orderRepo;
 
     public function __construct()
     {
         $this->mpesaService = new MpesaService();
-        $this->orderRepo = new OrderRepository();
+        $this->b2cService   = new MpesaB2cService();
+        $this->orderRepo    = new OrderRepository();
     }
 
     /**
@@ -128,6 +131,44 @@ class PaymentController
             ], 'Order verification completed');
         } catch (Throwable $e) {
             Response::error($e->getMessage(), 500);
+        }
+    }
+
+    /**
+     * Safaricom Daraja B2C ResultURL — receives async payout outcome
+     */
+    public function b2cResult(Request $request): void
+    {
+        try {
+            $payload = $request->body();
+            $this->b2cService->handleB2cResult($payload);
+
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode(['ResultCode' => 0, 'ResultDesc' => 'Accepted']);
+            exit;
+        } catch (Throwable $e) {
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode(['ResultCode' => 1, 'ResultDesc' => $e->getMessage()]);
+            exit;
+        }
+    }
+
+    /**
+     * Safaricom Daraja B2C QueueTimeOutURL — called when Daraja times out
+     */
+    public function b2cTimeout(Request $request): void
+    {
+        try {
+            $payload = $request->body();
+            $this->b2cService->handleB2cTimeout($payload);
+
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode(['ResultCode' => 0, 'ResultDesc' => 'Timeout acknowledged']);
+            exit;
+        } catch (Throwable $e) {
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode(['ResultCode' => 1, 'ResultDesc' => $e->getMessage()]);
+            exit;
         }
     }
 }
