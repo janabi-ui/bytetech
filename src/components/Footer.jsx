@@ -13,8 +13,8 @@ export default function Footer() {
               <ShieldCheck size={26} color="var(--primary-blue)" />
             </div>
             <div>
-              <h4>Official Warranties</h4>
-              <p>1-to-2 year East Africa manufacturer warranty on all items</p>
+              <h4>100% Genuine Hardware</h4>
+              <p>Direct from authorized dealers and regional distributors</p>
             </div>
           </div>
           <div className="trust-item">
@@ -124,7 +124,7 @@ export default function Footer() {
               <li><Link to="/cart">My Shopping Cart</Link></li>
               <li><Link to="/receipt">Order Fiscal Verification</Link></li>
               <li><Link to="/privacy">Privacy & Data Security</Link></li>
-              <li><Link to="/terms">Terms of Service & Warranty</Link></li>
+              <li><Link to="/terms">Terms of Service</Link></li>
               <li><Link to="/catalog">All Hardware Collections</Link></li>
             </ul>
           </div>
@@ -132,11 +132,8 @@ export default function Footer() {
           <div className="footer-col">
             <h5 className="footer-title">Store & Support</h5>
             <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '8px' }}>
-              Biashara Plaza, 4th Floor, Suite 412<br />
-              Moi Avenue, Mombasa CBD, Kenya
-            </p>
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '8px' }}>
               <strong>Support:</strong> <a href="tel:+254748189196" style={{ color: 'var(--primary-blue)', textDecoration: 'none', fontWeight: '600' }}>+254 748 189196</a><br />
+              <strong>Support:</strong> <a href="tel:+254741213889" style={{ color: 'var(--primary-blue)', textDecoration: 'none', fontWeight: '600' }}>+254 741 213 889</a><br />
               <strong>Fiscal PIN:</strong> P051234567Z
             </p>
           </div>

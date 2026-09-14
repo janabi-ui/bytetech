@@ -87,9 +87,11 @@ $router->delete('/api/orders', [OrderController::class, 'delete'], [$orderRateLi
 $router->get('/api/products', [ProductController::class, 'listProducts']);
 $router->get('/api/products/detail', [ProductController::class, 'getProduct']);
 
-// ── Payment Verification & Gateway Webhooks ──
+// ── Safaricom M-Pesa Daraja Payment Routes ──
+$router->post('/api/payments/mpesa-stk', [PaymentController::class, 'stkPush'], [$orderRateLimiter]);
+$router->post('/api/payments/mpesa-query', [PaymentController::class, 'queryStatus']);
+$router->post('/api/payments/mpesa-callback', [PaymentController::class, 'callback']);
 $router->post('/api/payments/verify', [PaymentController::class, 'verify'], [$orderRateLimiter]);
-$router->post('/api/payments/webhook', [PaymentController::class, 'webhook']);
 
 // ── Admin Control Center (PIN Protected & Rate Limited) ──
 $adminRateLimiter = new RateLimitMiddleware(60, 60);

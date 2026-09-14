@@ -42,7 +42,7 @@ class OrderService
         $customerPhone = $customer['phone'] ?? null;
         $orderId = $payload['tx_ref'] ?? ($payload['order_id'] ?? Sanitizer::generateOrderId('BT01', $customerPhone));
         $transactionId = $payload['transaction_id'] ?? ($payload['invoice_id'] ?? ('TXN-' . bin2hex(random_bytes(6))));
-        $paymentMethod = $payload['payment_method'] ?? 'M-Pesa (IntaSend)';
+        $paymentMethod = $payload['payment_method'] ?? 'M-Pesa';
 
         return Database::transaction(function () use ($orderId, $transactionId, $paymentMethod, $customer, $cartItems) {
             $computedTotal = 0.0;

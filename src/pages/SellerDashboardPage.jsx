@@ -277,7 +277,7 @@ function AddProductModal({ onClose, onAdd, initialProduct }) {
 
             <div>
               <label style={labelStyle}>Description (optional)</label>
-              <textarea rows={3} placeholder="Describe the hardware condition, warranty, and package contents…" style={{ ...inputStyle, resize: 'vertical', lineHeight: 1.6 }} onFocus={onFocus} onBlur={onBlur} value={form.description} onChange={e => set('description', e.target.value)} />
+              <textarea rows={3} placeholder="Describe the hardware condition, specifications, and package contents…" style={{ ...inputStyle, resize: 'vertical', lineHeight: 1.6 }} onFocus={onFocus} onBlur={onBlur} value={form.description} onChange={e => set('description', e.target.value)} />
             </div>
 
             <div>

@@ -167,7 +167,7 @@ export default function ProductPage() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px', marginTop: '20px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 14px', background: 'var(--surface-frost)', borderRadius: 'var(--radius-md)', fontSize: '0.85rem' }}>
                 <ShieldCheck size={18} color="var(--primary-blue)" />
-                <span>{product.warranty} Warranty</span>
+                <span>100% Genuine Tech</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 14px', background: 'var(--surface-frost)', borderRadius: 'var(--radius-md)', fontSize: '0.85rem' }}>
                 <Truck size={18} color="var(--accent-success)" />
@@ -413,7 +413,7 @@ export default function ProductPage() {
         </div>
       </div>
 
-      {/* IntaSend Checkout Modal */}
+      {/* M-Pesa Checkout Modal */}
       <CheckoutModal />
     </div>
   );

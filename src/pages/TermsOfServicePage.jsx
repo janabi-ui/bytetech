@@ -143,15 +143,15 @@ export default function TermsOfServicePage() {
           <section style={{ marginBottom: '36px' }}>
             <h2 style={{ fontSize: '1.35rem', fontWeight: '800', color: '#0A192F', marginBottom: '14px', display: 'flex', alignItems: 'center', gap: '10px' }}>
               <RefreshCw size={20} color="#0058BC" />
-              <span>5. Warranty Coverage & Return Policy</span>
+              <span>5. Return & Replacement Policy</span>
             </h2>
             <p style={{ marginBottom: '12px' }}>
               We stand behind every piece of hardware sold on Byte Tech Direct:
             </p>
             <ul style={{ paddingLeft: '24px' }}>
-              <li><strong>Official Manufacturer Warranty:</strong> 1-Year to 2-Year East Africa warranty coverage applies to all laptops, workstation towers, monitors, and phones.</li>
+              <li><strong>Authenticity Guarantee:</strong> 100% genuine and verified hardware sourced exclusively from certified channels.</li>
               <li><strong>7-Day Dead-On-Arrival (DOA) Replacement:</strong> If a device exhibits factory hardware defects within 7 calendar days of receipt, Byte Tech will provide an immediate identical replacement or full refund.</li>
-              <li><strong>Warranty Exclusions:</strong> Warranty does NOT cover physical drops, liquid intrusion, electrical power surges without surge protectors, or unauthorized third-party repairs.</li>
+              <li><strong>Condition of Returned Goods:</strong> Returns must include all original packaging, accompanying serial tags, documentation, and accessories.</li>
             </ul>
           </section>
 
@@ -179,7 +179,7 @@ export default function TermsOfServicePage() {
               Official Customer Care & Legal Inquiries
             </h3>
             <p style={{ fontSize: '0.92rem', color: '#475569', marginBottom: '16px' }}>
-              For questions regarding these Terms, contract clarifications, or warranty claims:
+              For questions regarding these Terms, contract clarifications, or return requests:
             </p>
             <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap', fontSize: '0.9rem' }}>
               <div>
@@ -187,9 +187,11 @@ export default function TermsOfServicePage() {
               </div>
               <div>
                 <strong>Direct Line:</strong> <a href="tel:+254748189196" style={{ color: '#0058BC', textDecoration: 'none', fontWeight: '700' }}>+254 748 189196</a>
+                {' '}&bull;{' '}
+                <a href="tel:+254741213889" style={{ color: '#0058BC', textDecoration: 'none', fontWeight: '700' }}>+254 741 213 889</a>
               </div>
               <div>
-                <strong>Office:</strong> Biashara Plaza, Moi Avenue, Mombasa CBD, Kenya
+                <strong>Location:</strong> Mombasa CBD, Kenya
               </div>
             </div>
           </section>

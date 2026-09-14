@@ -294,7 +294,7 @@ export default function CartPage() {
             {/* Security notice */}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginTop: '18px', fontSize: '0.8rem', color: 'var(--text-light)' }}>
               <ShieldCheck size={16} />
-              <span>Secured 256-bit IntaSend payment gateway</span>
+              <span>Secured direct Safaricom M-Pesa STK push</span>
             </div>
           </div>
         </div>

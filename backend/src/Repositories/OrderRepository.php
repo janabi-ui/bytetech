@@ -21,10 +21,10 @@ class OrderRepository
         $shippingAddress = Sanitizer::string($data['shipping_address'] ?? 'Nairobi/Mombasa Delivery Hub', 500);
         $totalAmount = Sanitizer::price($data['total_amount'] ?? 0);
         $currency = $data['currency'] ?? 'KES';
-        $paymentMethod = Sanitizer::string($data['payment_method'] ?? 'M-Pesa (IntaSend)');
+        $paymentMethod = Sanitizer::string($data['payment_method'] ?? 'M-Pesa');
         $flwTxId = Sanitizer::string($data['flw_transaction_id'] ?? null);
         $flwTxRef = Sanitizer::string($data['flw_tx_ref'] ?? $id);
-        $status = $data['status'] ?? 'paid'; // In live IntaSend STK or mock flow, completed checkout marks paid
+        $status = $data['status'] ?? 'paid'; // In live M-Pesa STK or mock flow, completed checkout marks paid
 
         $sql = 'INSERT INTO orders (
                     id, customer_name, customer_email, customer_phone, shipping_address,

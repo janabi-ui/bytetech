@@ -6,7 +6,6 @@ import {
   Monitor, Phone, MessageCircle, FileText, Zap, ChevronRight
 } from 'lucide-react';
 import ShimmerButton from '../components/magicui/ShimmerButton';
-import DotPattern from '../components/magicui/DotPattern';
 import Marquee from '../components/magicui/Marquee';
 import ProductCard from '../components/ProductCard';
 import { apiUrl } from '../lib/api';
@@ -90,117 +89,29 @@ export default function HomePage() {
   return (
     <div className="home-page" style={{ background: '#F8FAFC', minHeight: '100vh' }}>
       
-      {/* 1. Focused Prestige Hero */}
-      <section className="hero-section" style={{ position: 'relative', overflow: 'hidden', padding: '64px 16px 56px', background: '#FFFFFF', borderBottom: '1px solid #E2E8F0' }}>
-        <DotPattern opacity={0.3} />
+      {/* 1. Flagship Hardware Showcase Hero - Power Meets Precision Engineering (Image 2 Design) */}
+      <section className="flagship-hero-section">
+        {/* Background image on the right, seamlessly blending into the dark canvas */}
+        <div className="flagship-hero-bg" />
 
-        <div style={{ maxWidth: '860px', margin: '0 auto', textAlign: 'center', position: 'relative', zIndex: 1 }}>
-          
-          {/* Trust Badge */}
-          <div style={{ display: 'inline-flex', alignItems: 'center', marginBottom: '18px' }}>
-            <span style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '8px',
-              padding: '6px 16px',
-              background: 'rgba(0, 88, 188, 0.06)',
-              border: '1px solid rgba(0, 88, 188, 0.18)',
-              borderRadius: '999px',
-              fontSize: '0.84rem',
-              fontWeight: '700',
-              color: 'var(--primary-blue)'
-            }}>
-              <Sparkles size={15} color="var(--primary-blue)" />
-              <span>Authorized Enterprise Electronics • Mombasa CBD & Kenya Nationwide</span>
-            </span>
-          </div>
+        {/* Left-Aligned Vision & Actions Container */}
+        <div className="flagship-hero-container">
+          <div className="flagship-hero-content">
+            <h1 className="flagship-title">
+              Power Meets <br />
+              <span className="flagship-title-cyan">Precision Engineering.</span>
+            </h1>
 
-          {/* Main Headline */}
-          <h1 style={{
-            fontSize: 'clamp(2.2rem, 4.8vw, 3.8rem)',
-            fontWeight: '800',
-            lineHeight: 1.15,
-            color: '#0A192F',
-            letterSpacing: '-0.03em',
-            marginBottom: '18px'
-          }}>
-            Genuine Hardware Direct From Authorized Dealers. <br />
-            <span style={{
-              background: 'linear-gradient(135deg, #0058BC 0%, #00D1FF 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent'
-            }}>
-              100% Tax Invoiced via KRA eTIMS.
-            </span>
-          </h1>
+            <p className="flagship-desc">
+              Next-generation workstation laptops, 4K displays, lossless audio, and high-frequency tactile hardware designed for visionary creators.
+            </p>
 
-          {/* Subheading */}
-          <p style={{
-            fontSize: '1.12rem',
-            color: '#475569',
-            lineHeight: 1.6,
-            maxWidth: '660px',
-            margin: '0 auto 32px'
-          }}>
-            Workstations, flagship smartphones, studio acoustics, and accessories. 
-            Protected by official 1-to-2 year East Africa warranties, instant M-Pesa STK checkout, and same-day Mombasa dispatch.
-          </p>
-
-          {/* Hero Action CTAs */}
-          <div style={{ display: 'flex', gap: '14px', justifyContent: 'center', flexWrap: 'wrap', alignItems: 'center' }}>
-            <ShimmerButton 
-              variant="primary" 
-              size="lg" 
-              onClick={() => navigate('/catalog')}
-            >
-              <span>Explore Hardware Catalog</span>
-              <ArrowRight size={18} />
-            </ShimmerButton>
-
-            <button
-              type="button"
-              onClick={() => navigate('/receipt')}
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                padding: '12px 24px',
-                borderRadius: '999px',
-                background: '#FFFFFF',
-                color: '#1E293B',
-                fontWeight: '700',
-                fontSize: '0.92rem',
-                border: '1.5px solid #CBD5E1',
-                cursor: 'pointer',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
-                transition: 'all 0.2s'
-              }}
-            >
-              <FileText size={17} color="var(--primary-blue)" />
-              <span>Track Order / Verify Receipt</span>
-            </button>
-          </div>
-
-          {/* Direct WhatsApp / Phone Assistance */}
-          <div style={{ marginTop: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px', flexWrap: 'wrap', fontSize: '0.86rem', color: '#64748B' }}>
-            <span>Need urgent delivery or bulk quotation?</span>
-            <a 
-              href="tel:+254748189196" 
-              style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', color: '#0058BC', fontWeight: '700', textDecoration: 'none' }}
-            >
-              <Phone size={14} />
-              <span>+254 748 189196</span>
-            </a>
-            <span style={{ opacity: 0.4 }}>•</span>
-            <a 
-              href="https://wa.me/254748189196?text=Hello%20Byte%20Tech%20Direct,%20I%20would%20like%20to%20inquire%20about%20hardware" 
-              target="_blank" 
-              rel="noreferrer"
-              style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', color: '#059669', fontWeight: '700', textDecoration: 'none' }}
-            >
-              <MessageCircle size={14} />
-              <span>WhatsApp Us</span>
-            </a>
+            <div className="flagship-cta-row">
+              <Link to="/catalog" className="btn-flagship-primary">
+                <span>Explore Entire Catalog</span>
+                <ArrowRight size={18} />
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -466,6 +377,26 @@ export default function HomePage() {
               >
                 <Phone size={16} color="#0058BC" />
                 <span>Call: +254 748 189196</span>
+              </a>
+
+              <a
+                href="tel:+254741213889"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  padding: '10px 20px',
+                  borderRadius: '999px',
+                  background: '#FFFFFF',
+                  color: '#0A192F',
+                  fontWeight: '700',
+                  fontSize: '0.88rem',
+                  textDecoration: 'none',
+                  boxShadow: '0 4px 14px rgba(0,0,0,0.2)'
+                }}
+              >
+                <Phone size={16} color="#0058BC" />
+                <span>Call: +254 741 213 889</span>
               </a>
 
               <a

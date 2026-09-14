@@ -745,10 +745,10 @@ export default function ReceiptPage() {
                   </div>
 
                   <p style={{ color: '#475569', fontSize: '0.85rem', marginTop: '8px' }}>
-                    Method: <strong>{order.payment_method || 'M-Pesa (IntaSend)'}</strong>
+                    Method: <strong>{order.payment_method || 'M-Pesa'}</strong>
                   </p>
                   <p style={{ color: '#475569', fontSize: '0.85rem' }}>
-                    Txn Ref: <strong style={{ fontFamily: 'monospace' }}>{order.flw_transaction_id || order.flw_tx_ref || order.txnId || 'IS-TXN-OK'}</strong>
+                    Txn Ref: <strong style={{ fontFamily: 'monospace' }}>{order.flw_transaction_id || order.flw_tx_ref || order.txnId || 'MPESA-TXN'}</strong>
                   </p>
                   <p style={{ color: '#94A3B8', fontSize: '0.82rem', marginTop: '4px' }}>
                     {order.created_at ? new Date(order.created_at).toLocaleString('en-KE', { dateStyle: 'medium', timeStyle: 'short' }) : (order.date || new Date().toLocaleString())}
@@ -892,7 +892,7 @@ export default function ReceiptPage() {
 
                     {/* Footer Note */}
                     <div style={{ background: '#F8FAFC', padding: '18px 32px', textAlign: 'center', borderTop: '1px solid #E2E8F0', fontSize: '0.82rem', color: '#64748B' }}>
-                      <p>Thank you for shopping with Byte Tech Ltd. Official manufacturer warranty applies across East Africa.</p>
+                      <p>Thank you for shopping with Byte Tech Ltd. Genuine hardware direct from authorized dealers.</p>
                       <p style={{ marginTop: '4px' }}>For tax credit reconciliation, quote CU INVOICE: <strong>{cuInvoice}</strong></p>
                     </div>
                   </>

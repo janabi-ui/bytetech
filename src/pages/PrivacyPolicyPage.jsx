@@ -72,7 +72,7 @@ export default function PrivacyPolicyPage() {
             </p>
             <ul style={{ paddingLeft: '24px', marginBottom: '14px' }}>
               <li><strong>Contact & Identity Data:</strong> Full name, phone number, email address, and physical delivery/dispatch address.</li>
-              <li><strong>Transaction & Payment Details:</strong> M-Pesa phone number, payment method, IntaSend reference IDs, and order itemization. <em>Note: We never store your M-Pesa PIN or raw bank card CVV numbers.</em></li>
+              <li><strong>Transaction & Payment Details:</strong> M-Pesa phone number, payment method, M-Pesa transaction reference IDs, and order itemization. <em>Note: We never store your M-Pesa PIN or raw banking credentials.</em></li>
               <li><strong>Fiscal & Tax Data:</strong> KRA PIN (if requested by enterprise buyers for KRA eTIMS invoice issuance and VAT input deductions).</li>
               <li><strong>Merchant Profile Data:</strong> Business registration certificates, store name, payout bank or M-Pesa paybill accounts, and national ID details for vetted sellers.</li>
             </ul>
@@ -92,8 +92,8 @@ export default function PrivacyPolicyPage() {
             <ul style={{ paddingLeft: '24px' }}>
               <li><strong>Order Fulfillment & Courier Dispatch:</strong> Coordinating express delivery within Mombasa CBD and 24h nationwide shipping via authorized couriers.</li>
               <li><strong>KRA eTIMS Tax Invoicing:</strong> Generating authentic fiscal tax receipts transmitted to the Kenya Revenue Authority portal with verified CU serial numbers.</li>
-              <li><strong>Payment Verification:</strong> Facilitating automated M-Pesa STK push confirmations via IntaSend's regulated payment gateway.</li>
-              <li><strong>Warranty & After-Sales Support:</strong> Honoring official 1-to-2 year East Africa manufacturer warranties for workstations, laptops, and studio audio.</li>
+              <li><strong>Payment Verification:</strong> Facilitating automated M-Pesa STK push confirmations via Safaricom's regulated payment infrastructure.</li>
+              <li><strong>Customer & After-Sales Support:</strong> Providing direct customer care and technical support for workstations, laptops, and studio audio.</li>
               <li><strong>Fraud Prevention & Platform Security:</strong> Detecting suspicious activity and securing verified merchant listings.</li>
             </ul>
           </section>
@@ -160,9 +160,11 @@ export default function PrivacyPolicyPage() {
               </div>
               <div>
                 <strong>Phone:</strong> <a href="tel:+254748189196" style={{ color: '#0058BC', textDecoration: 'none', fontWeight: '700' }}>+254 748 189196</a>
+                {' '}&bull;{' '}
+                <a href="tel:+254741213889" style={{ color: '#0058BC', textDecoration: 'none', fontWeight: '700' }}>+254 741 213 889</a>
               </div>
               <div>
-                <strong>Office:</strong> Biashara Plaza, Moi Avenue, Mombasa CBD, Kenya
+                <strong>Location:</strong> Mombasa CBD, Kenya
               </div>
             </div>
           </section>
